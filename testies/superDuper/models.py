@@ -29,20 +29,27 @@ class AirportsFiltered(models.Model):
         return self.name
 
 
-# # "icao": "ANYN",
-#     "type": "medium_airport",
-#     "name": "Nauru International Airport",
-#     "latitude_deg": -0.547458,
-#     "longitude_deg": 166.919006,
-#     "elevation_ft": 22,
-#     "continent": "OC",
-#     "iso_country": "NR",
-#     "iso_common_name": "Yaren",
-#     "iso_region": "NR-14",
-#     "municipality": "Yaren District",
-#     "gps_code": "ANYN",
-#     "iata_code": "INU",
-#     "local_code": ""
+class AirportsFAA(models.Model):
+    site_number = models.CharField(max_length=200)
+    type = models.CharField(max_length=200)
+    location_id = models.CharField(max_length=200)
+    region = models.CharField(max_length=200)
+    district_office = models.CharField(max_length=200)
+    state = models.CharField(max_length=200)
+    state_name = models.CharField(max_length=200)
+    county = models.CharField(max_length=200)
+    county_state = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
+    facility_name = models.CharField(max_length=200)
+    arp_latitude = models.CharField(max_length=200)
+    arp_latitude_s = models.CharField(max_length=200)
+    arp_longitude = models.CharField(max_length=200)
+    arp_longitude_s = models.CharField(max_length=200)
+    arp_elevation = models.IntegerField()
+    icao_identifier = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.facility_name
 
 
 # class Question(models.Model):
