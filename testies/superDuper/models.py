@@ -29,6 +29,9 @@ class AirportsFiltered(models.Model):
         return self.name
 
 
+
+
+
 class AirportsFAA(models.Model):
     site_number = models.CharField(max_length=200)
     type = models.CharField(max_length=200)
@@ -47,6 +50,84 @@ class AirportsFAA(models.Model):
     arp_longitude_s = models.CharField(max_length=200)
     arp_elevation = models.IntegerField()
     icao_identifier = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.facility_name
+
+
+class Timezone(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class FAA_Region(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class State(models.Model):
+    name = models.CharField(max_length=200)
+    faa_region = models.ForeignKey("FAA_Region", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class County(models.Model):
+    name = models.CharField(max_length=200)
+    state = models.ForeignKey("State", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class City(models.Model):
+    name = models.CharField(max_length=200)
+    county = models.ForeignKey("County", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class DatabaseFAA(models.Model):
+    site_number = models.CharField(max_length=200)
+    type = models.CharField(max_length=200)
+    location_id = models.CharField(max_length=200)
+    district_office = models.CharField(max_length=200)
+    county_state = models.CharField(max_length=200)
+    facility_name = models.CharField(max_length=200)
+    arp_latitude = models.CharField(max_length=200)
+    arp_latitude_s = models.CharField(max_length=200)
+    arp_longitude = models.CharField(max_length=200)
+    arp_longitude_s = models.CharField(max_length=200)
+    arp_elevation = models.IntegerField()
+    icao_identifier = models.CharField(max_length=200)
+    timezone = models.CharField(max_length=200)
+    city_id = models.ForeignKey("City", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.facility_name
+
+
+class DatabaseFAATimezone(models.Model):
+    site_number = models.CharField(max_length=200)
+    type = models.CharField(max_length=200)
+    location_id = models.CharField(max_length=200)
+    district_office = models.CharField(max_length=200)
+    county_state = models.CharField(max_length=200)
+    facility_name = models.CharField(max_length=200)
+    arp_latitude = models.CharField(max_length=200)
+    arp_latitude_s = models.CharField(max_length=200)
+    arp_longitude = models.CharField(max_length=200)
+    arp_longitude_s = models.CharField(max_length=200)
+    arp_elevation = models.IntegerField()
+    icao_identifier = models.CharField(max_length=200)
+    timezone = models.ForeignKey("Timezone", on_delete=models.CASCADE)
+    city = models.ForeignKey("City", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.facility_name

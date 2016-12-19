@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'testies.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'awesome.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'new.db'),
     }
 }
 
