@@ -1,18 +1,27 @@
 from django.contrib import admin
 from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
 from django.contrib.admin.filters import RelatedOnlyFieldListFilter
-from .models import AirportsFiltered, AirportsFAA, DatabaseFAA, City, DatabaseFAATimezone
+from .models import AirportsFiltered, AirportsFAA, DatabaseFAA, City, DatabaseFAATimezone, County
 
 # Register your models here.
 
 class CityAdmin(admin.ModelAdmin):
     list_display = ['name',
+                    'county',
                     'id']
+
+    search_fields = ['name',]
 
 admin.site.register(City, CityAdmin)
 
 
-# class
+class CountyAdmin(admin.ModelAdmin):
+    list_display = ['name',
+                    'state',
+                    'id']
+    search_fields = ['name',]
+
+admin.site.register(County, CountyAdmin)
 
 
 class AirportsFilteredAdmin(admin.ModelAdmin):

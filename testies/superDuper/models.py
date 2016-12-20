@@ -82,7 +82,7 @@ class County(models.Model):
     state = models.ForeignKey("State", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return ", ".join([self.name, str(self.state)])
 
 
 class City(models.Model):
@@ -90,7 +90,7 @@ class City(models.Model):
     county = models.ForeignKey("County", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return ", ".join([self.name, str(self.county.state)])
 
 
 class DatabaseFAA(models.Model):
@@ -114,18 +114,18 @@ class DatabaseFAA(models.Model):
 
 
 class DatabaseFAATimezone(models.Model):
-    site_number = models.CharField(max_length=200)
-    type = models.CharField(max_length=200)
+    site_number = models.CharField(max_length=200, blank=True)
+    type = models.CharField(max_length=200, blank=True)
     location_id = models.CharField(max_length=200)
-    district_office = models.CharField(max_length=200)
+    district_office = models.CharField(max_length=200, blank=True)
     county_state = models.CharField(max_length=200)
     facility_name = models.CharField(max_length=200)
-    arp_latitude = models.CharField(max_length=200)
-    arp_latitude_s = models.CharField(max_length=200)
-    arp_longitude = models.CharField(max_length=200)
-    arp_longitude_s = models.CharField(max_length=200)
-    arp_elevation = models.IntegerField()
-    icao_identifier = models.CharField(max_length=200)
+    arp_latitude = models.CharField(max_length=200, blank=True)
+    arp_latitude_s = models.CharField(max_length=200, blank=True)
+    arp_longitude = models.CharField(max_length=200, blank=True)
+    arp_longitude_s = models.CharField(max_length=200, blank=True)
+    arp_elevation = models.IntegerField(blank=True)
+    icao_identifier = models.CharField(max_length=200, blank=True)
     timezone = models.ForeignKey("Timezone", on_delete=models.CASCADE)
     city = models.ForeignKey("City", on_delete=models.CASCADE)
 
